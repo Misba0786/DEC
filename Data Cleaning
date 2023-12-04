@@ -1,0 +1,80 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+df=pd.read_csv("webscrape.csv")
+df.head()
+df.dtypes
+df.isnull().sum()
+df.isna().sum()
+df['Headquarters'].unique()
+from sklearn import preprocessing
+import numpy as np
+x_array = np.array([2,3,5,6,7,4,8,7,6])
+normalized_arr = preprocessing.normalize([x_array])
+print(normalized_arr)
+import pandas as pd
+housing = pd.read_csv("housing.csv")
+housing
+housing.dropna(inplace=True)
+housing.isnull().sum()
+from sklearn import preprocessing
+x_array = np.array(housing['total_bedrooms'])
+normalized_arr = preprocessing.normalize([x_array])
+print(normalized_arr)
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+
+# Assuming 'housing' is your original DataFrame with categorical columns
+# Categorical columns need to be specified
+categorical_columns = ['ocean_proximity']
+
+# Create a ColumnTransformer to apply transformations to different columns
+# One-hot encode categorical columns and scale numerical columns
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('cat', OneHotEncoder(), categorical_columns),
+        ('num', MinMaxScaler(), housing.columns.difference(categorical_columns))
+    ],
+    remainder='passthrough'  # Pass through any columns not specified
+)
+
+# Apply preprocessing to your DataFrame
+scaled_data = preprocessor.fit_transform(housing)
+# Get the list of column names after transformation
+column_names = preprocessor.get_feature_names_out(input_features=housing.columns)
+
+scaled_df = pd.DataFrame(scaled_data, columns=column_names)
+from sklearn.preprocessing import scale
+from sklearn.decomposition import PCA
+x=housing.values
+x
+import pandas as pd
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+
+# Assuming 'housing' is your original DataFrame with categorical columns
+# Categorical columns need to be specified
+categorical_columns = ['ocean_proximity']
+
+# Create a ColumnTransformer to apply transformations to different columns
+# One-hot encode categorical columns and scale numerical columns
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('cat', OneHotEncoder(), categorical_columns),
+        ('num', StandardScaler(), housing.columns.difference(categorical_columns))
+    ],
+    remainder='passthrough'  # Pass through any columns not specified
+)
+
+# Apply preprocessing to your DataFrame
+transformed_data = preprocessor.fit_transform(housing)
+
+# Apply PCA
+pca = PCA()
+pca.fit(transformed_data)
+
+# Explained variance ratios
+explained_variance_ratios = pca.explained_variance_ratio_
+print(explained_variance_ratios)
