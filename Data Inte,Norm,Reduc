@@ -1,0 +1,57 @@
+from sklearn import preprocessing
+import numpy as np
+x_array = np.array([2,3,5,6,7,4,8,7,6])
+normalized_arr = preprocessing.normalize([x_array])
+print(normalized_arr)
+import pandas as pd
+housing = pd.read_csv("/content/sample_data/california_housing_train.csv")
+housing
+from sklearn import preprocessing
+x_array = np.array(housing['total_bedrooms'])
+normalized_arr = preprocessing.normalize([x_array])
+print(normalized_arr)
+from sklearn import preprocessing
+import pandas as pd
+housing = pd.read_csv("/content/sample_data/california_housing_train.csv")
+scaler = preprocessing.MinMaxScaler()
+names = housing.columns
+d = scaler.fit_transform(housing)
+scaled_df = pd.DataFrame(d, columns=names)
+scaled_df.head()
+from sklearn import preprocessing
+import pandas as pd
+housing = pd.read_csv("/content/sample_data/california_housing_train.csv")
+scaler = preprocessing.MinMaxScaler(feature_range=(0, 2))
+names = housing.columns
+d = scaler.fit_transform(housing)
+scaled_df = pd.DataFrame(d, columns=names)
+scaled_df.head()
+#Data Reduction
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import scale
+from sklearn.decomposition import PCA
+housing = pd.read_csv("/content/sample_data/california_housing_train.csv")
+housing
+x=housing.values
+x
+x=scale(x)
+x
+pca=PCA()
+pca.fit(x)
+print(pca.explained_variance_ratio_)
+pca5=PCA(n_components=5)
+pca5.fit(x)
+print(pca5.explained_variance_ratio_)
+print(pca5.components_)
+#Data integration
+import pandas as pd
+import numpy as np
+# dataset1="/content/student.csv"
+# dataset2="/content/mark.csv"
+df1 = pd.read_csv("student.csv",header=0)
+df2 = pd.read_csv("mark.csv",header=0)
+df1
+df2
+df=pd.merge(df1,df2,on='Student_id')
+df
